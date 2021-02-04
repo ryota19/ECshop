@@ -1,0 +1,19 @@
+- if seller.errors.present?
+  %ul#error_explanation 
+  - seller.errors.each do |message|
+    %li= message 
+
+= form_with model: [:admin, seller],local: true do |f|
+  .field
+    = f.label :name, '名前'
+    = f.text_field :name, class: 'form-comtrol'
+  .field
+    = f.label :name, 'メールアドレス'
+    = f.text_field :email, class: 'form-control'
+  .field
+    = f.label :passowrd, 'パスワード ※６文字以上'
+    = f.password_field :password, class: 'form-control'
+  .field
+    = f.label :password_confirmation, 'パスワード（確認）'
+    = f.password_field :password_confirmation, class: 'form-control'
+  = f.submit '登録する', class: 'btn btn-primary'

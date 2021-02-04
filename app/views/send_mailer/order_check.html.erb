@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content='text/html; charset=UTF-8'http-equiv= 'Content-Type  /'>
+    </head>
+    <body>
+        <h1>Thank you <%= @seller.name %></h1>
+
+        <tr>
+            <% @cart_items.each do |cart_item| %>
+                <td>Product Name: <%= cart_item.product.name %></td>
+                <td>Product Price: <%= cart_item.product.price %></td>
+                <td>Prodcut Quantity: <%= cart_item.quantity %></td>
+            <% end %>
+        </tr>
+
+
+
+        <p> Total Price: <%= @total_price %> </p>
+    </body>
+</html>

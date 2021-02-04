@@ -1,0 +1,20 @@
+%h1 商品一覧
+
+.mb-3
+%table.table.table-hover 
+  %thead.thead-default
+
+    %tr
+      %th 画像
+      %th 名前
+      %th 価格
+      %th= Product.human_attribute_name(:created_at)
+    %tbody 
+    - @products.each do |product|
+      %tr 
+        %td= image_tag product.image.to_s
+        %td= link_to product.name, product
+        %td= product.price 
+        %td= product.created_at.to_s(:datetime_jp)        
+        %td= link_to '編集', edit_product_path(product), class: 'btn btn-primary mr-3'
+        %td= link_to '削除', product, method: :delete, data: { confirm: "商品を削除します。よろしいですか？" }, class: 'btn btn-danger'

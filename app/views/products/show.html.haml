@@ -1,0 +1,18 @@
+%h1 商品の詳細
+
+%h2= @product.name
+= form_for(@product,url: add_item_path(product_id: @product.id)) do |f|
+  %table.table-striped
+    %thead
+      %tr 
+        %th 商品画像
+        %th 商品価格
+        %th 個数
+
+    %tbody
+      %tr 
+        %td= image_tag @product.image.to_s
+        %td= @product.price 
+        %td= f.number_field :quantity, value: 1, class: 'form-control', min: 1
+        %td= f.hidden_field :product_id, value: @product.id
+        %td= f.submit 'カートに入れる', class: 'btn btn-success'

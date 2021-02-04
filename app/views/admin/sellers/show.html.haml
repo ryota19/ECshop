@@ -1,0 +1,26 @@
+%h1 ユーザーの詳細
+
+
+%table.table.table-hover 
+  %tbody 
+    %tr
+      %th= Seller.human_attribute_name(:id)
+      %td= @seller.id
+    %tr 
+      %th= Seller.human_attribute_name(:name)
+      %td= @seller.name
+    %tr 
+      %th= Seller.human_attribute_name(:email)
+      %td= @seller.email
+    %tr 
+      %th admin
+      %td= @seller.admin? ? 'あり' : 'なし'
+    %tr 
+      %th= Seller.human_attribute_name(:created_at)
+      %td= @seller.created_at.to_s(:datetime_jp)
+    %tr 
+      %th= Seller.human_attribute_name(:updated_at)
+      %td= @seller.updated_at.to_s(:datetime_jp)
+= link_to '編集', edit_admin_seller_path, class: 'btn btn-primary mr-3'
+- if current_seller.admin? && !currnt_seller?(seller)
+  = link_to '削除', [:admin, @seller], method: :delete, data: { confirm: "ユーザーを削除します。よろしいですか？" }, class: 'btn btn-danger'

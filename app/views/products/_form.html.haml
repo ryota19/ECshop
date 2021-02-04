@@ -1,0 +1,16 @@
+- if product.errors.present?
+  %ul#error_explanation
+    - product.errors.full_messages.each do |message|
+      %li= message 
+
+= form_with model: product, local: true do |f|
+  .form-group 
+    = f.label :name
+    = f.text_field :name, class: 'form-control', id: 'product_name'
+  .form-group 
+    = f.label :price 
+    = f.number_field :price, class: 'form-control', id: 'product_price'
+  .form-group
+    = f.label :image
+    = f.file_field :image , class: 'form-control'
+  = f.submit '出品する', class: 'btn btn-primary'

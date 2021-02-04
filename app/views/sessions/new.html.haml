@@ -1,0 +1,13 @@
+%h1 ログイン
+
+= form_for(:session, url: login_path) do |f|
+    .form-group
+        = f.label :email, 'メールアドレス'
+        = f.text_field :email, class: 'form-controll', id: 'session_email'
+    .form-group
+        = f.label :password, 'パスワード'
+        = f.password_field :password, class: 'form-control', id: 'session_password'
+    = f.submit "Log in", class: "btn btn-primary" 
+
+    %p New user?  
+= link_to 'sign up', signup_path, class: 'btn btn-primary'

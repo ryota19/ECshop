@@ -1,0 +1,31 @@
+%h2 MY注文履歴
+
+- if @order_products.blank?
+  %h2 注文履歴はありません
+- else 
+
+  %table.table.table-hover 
+    %thead.thead-default
+      %tr
+        %th 注文日
+        %th 注文ID
+        %th 合計金額
+        %th 注文ステータス
+        %th 
+        %th 商品名
+        %th
+
+    %tbody
+    - current_seller_order.each do |order|
+    - total_price = 0
+      %tr
+        %td= order.created_at.to_s(:datetime_jp)  
+        %td= order.id
+        - order.order_products.each do |order_product|
+          - order_product.price 
+          - order_product.quantity 
+          - total_price += order_product.price*order_product.quantity
+        %td= total_price 
+        %td= order.status
+        - order.order_products.each do |order_product|
+          %td= Product.find(order_product.product_id).name

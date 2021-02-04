@@ -1,0 +1,33 @@
+%h2 注文一覧
+
+
+- if @all_orders.blank?
+  %h2　注文履歴はありまん
+-else 
+
+%table.table.table-striped 
+  %thead.thead-default
+    %tr
+      %th 注文日
+      %th 名前
+      %th 住所
+      %th メールアドレス
+      %th 合計金額
+      %th 注文ステータス変更
+  %tbody
+  - @all_orders.each do |order|
+  %tr 
+  - total_price = 0
+    %td= order.created_at.to_s(:datetime_jp)
+
+    %td= order.name 
+    %td= order.address 
+    %td= order.email 
+
+    - order.order_products.each do |order_product|
+      - order_product.price 
+      - order_product.quantity
+      - total_price += order_product.price*order_product.quantity 
+    %td= total_price
+
+    %td= link_to "#{order.status}", order_chenge_status_path(order), method: :patch, data: { confirm: 'ステータスを更新してもよろしいですか？' }

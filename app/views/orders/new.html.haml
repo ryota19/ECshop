@@ -1,0 +1,29 @@
+%h2 注文内容
+
+%table.table-striped
+  %thead
+    %tr
+      %th 商品画像
+      %th 商品名
+      %th 価格
+      %th
+      %th 
+  %tbody
+  - @cart_items.each do |cart_item|
+  %tr
+  - product = Product.find(cart_item.product_id) 
+    %td= image_tag product.image.to_s
+
+    %td= cart_item.product.name
+
+    %td= cart_item.product.price
+
+%h2 合計金額
+%h2= @total_price  
+
+%h2　※名前と住所を入力してください
+= form_for @order, url: { action: 'confirm' } do |f|
+  .form-group
+    = f.label :address, '住所'
+    = f.text_area :address, id: :address, class: 'form-control'
+  = f.submit '確認画面へ', class: 'btn btn-primary'

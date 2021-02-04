@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Shop
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .app-title.navbar.navbar-expand-md.navbar-light.bg-light 
+      .navbar-brand shopping 
+
+      %ul.navbar-nav.ml-auto
+      - if logged_in?
+        - if current_seller.admin?
+          %linav-item= link_to "ユーザー", admin_sellers_path, class: 'nav-link'
+          %linav-item= link_to "商品登録", new_product_path, class: 'nav-link'
+          %linav-item= link_to "全ての注文履歴", orders_path, class: 'nav-link'
+        - else
+        %linav-item= link_to "商品一覧", products_path
+        %linav-item= link_to "カートを見る", current_cart, class: 'nav-link'
+        %linav-item= link_to "logout", logout_path, method: :delete, class: 'nav-link'
+        %linav-item= link_to "ユーザー編集", edit_admin_seller_path(current_seller), class: 'nav-link'
+        %linav-item= link_to "MY注文履歴", order_path(current_seller), class: 'nav-link'
+      -else
+        %linav-item= link_to 'login', login_path, class: 'nav-item'
+
+    .container
+      - if flash.notice.present?
+        .alert.alert-success= flash.notice
+      = yield

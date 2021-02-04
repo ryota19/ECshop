@@ -1,0 +1,33 @@
+%h1 carts 
+
+- if @cart_items.blank? 
+  %h2 カートに入っていません
+
+%table.table-striped
+  %thead
+    %tr
+      %th 商品画像
+      %th 商品名
+      %th 価格
+      %th 数量
+      %th 
+
+
+  %tbody
+  - @cart_items.each do |cart_item|
+  %tr
+  - product = Product.find(cart_item.product_id) 
+    %td= image_tag product.image.to_s
+
+    %td= cart_item.product.name
+
+    %td= cart_item.product.price
+
+    %td= cart_item.quantity 
+
+    %td= link_to 'カートから削除', cart_item, method: :delete, class: "btn btn-danger", data: {comfir: 'カートから削除してもよろしいですか？'}
+
+%h2 合計金額
+%h2= @total_price
+
+= link_to '注文する', new_order_path, method: :get, class: 'btn btn-primary'

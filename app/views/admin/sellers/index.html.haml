@@ -1,0 +1,27 @@
+%h1 ユーザ一覧
+
+
+= link_to '新規登録', new_admin_seller_path, class: 'btn btn-primary'
+
+%mb-3 
+%table.table.table-hover 
+  %thead.thead-default 
+    %tr
+      %th 名前
+      %th メールアドレス
+      %th admin
+      %th= Seller.human_attribute_name(:created_at)
+      %th= Seller.human_attribute_name(:updated_at)
+      %th 
+  %tbody 
+  - @sellers.each do |seller|
+    %tr 
+      %td= link_to seller.name, [:admin, seller]
+      %td= seller.email 
+      %td= seller.admin? ? 'あり' : 'なし'
+      %td= seller.created_at.to_s(:datetime_jp)
+      %td= seller.updated_at.to_s(:datetime_jp)
+      %td 
+        = link_to '編集', edit_admin_seller_path(seller), class: 'btn btn-primary'
+      %td 
+        = link_to '削除', [:admin, seller], method: :delete, data: { confirm: "ユーザーを削除します。よろしいですか？" }, class: 'btn btn-danger'
